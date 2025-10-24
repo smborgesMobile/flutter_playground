@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playground/features/bloc/bloc_page.dart';
 import 'package:flutter_playground/features/home/home_page.dart';
-import 'package:flutter_playground/widget/playground_button.dart';
 
 void main() {
   runApp(const MainApp());
