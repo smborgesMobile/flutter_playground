@@ -22,7 +22,12 @@ class HomePage extends StatelessWidget {
                 Navigator.pushNamed(context, '/udemy-course');
               },
             ),
-            PlaygroundButton(buttonText: "Feature 2", onPressed: () {}),
+            PlaygroundButton(
+              buttonText: "Tasks App",
+              onPressed: () {
+                Navigator.pushNamed(context, '/tasks-page');
+              },
+            ),
             PlaygroundButton(buttonText: "Feature 3", onPressed: () {}),
             PlaygroundButton(buttonText: "Feature 4", onPressed: () {}),
           ],
