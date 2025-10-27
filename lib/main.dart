@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playground/features/bloc/bloc_page.dart';
+import 'package:flutter_playground/features/course/udemy_course.dart';
 import 'package:flutter_playground/features/home/home_page.dart';
 
 void main() {
@@ -16,6 +17,7 @@ class MainApp extends StatelessWidget {
       routes: {
         "/": (context) => HomePage(),
         "/bloc-router": (context) => BlocPage(),
+        "/udemy-course": (context) => UdemyCourse(),
       },
     );
   }

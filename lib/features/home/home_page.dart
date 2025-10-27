@@ -16,7 +16,12 @@ class HomePage extends StatelessWidget {
                 Navigator.pushNamed(context, '/bloc-router');
               },
             ),
-            PlaygroundButton(buttonText: "Feature 1", onPressed: () {}),
+            PlaygroundButton(
+              buttonText: "Udemy Course",
+              onPressed: () {
+                Navigator.pushNamed(context, '/udemy-course');
+              },
+            ),
             PlaygroundButton(buttonText: "Feature 2", onPressed: () {}),
             PlaygroundButton(buttonText: "Feature 3", onPressed: () {}),
             PlaygroundButton(buttonText: "Feature 4", onPressed: () {}),
