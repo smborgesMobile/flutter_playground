@@ -4,17 +4,14 @@ import 'package:equatable/equatable.dart';
 
 class TasksModel extends Equatable {
   final String title;
-  bool? isDone;
-  bool? isDeleted;
+  final bool isDone;
+  final bool isDeleted;
 
-  TasksModel({
+  const TasksModel({
     required this.title,
-    this.isDone,
-    this.isDeleted,
-  }) {
-    isDone = isDone ?? false;
-    isDeleted = isDeleted ?? false;
-  }
+    this.isDone = false,
+    this.isDeleted = false,
+  });
 
   TasksModel copyWith({
     String? title,
@@ -39,13 +36,13 @@ class TasksModel extends Equatable {
   factory TasksModel.fromMap(Map<String, dynamic> map) {
     return TasksModel(
       title: map['title'] as String,
-      isDone: map['isDone'] != null ? map['isDone'] as bool : null,
-      isDeleted: map['isDeleted'] != null ? map['isDeleted'] as bool : null,
+      isDone: (map['isDone'] as bool?) ?? false,
+      isDeleted: (map['isDeleted'] as bool?) ?? false,
     );
   }
 
   @override
-  List<Object> get props => [title, isDone, isDeleted];
+  List<Object?> get props => [title, isDone, isDeleted];
 
   String toJson() => json.encode(toMap());
 
