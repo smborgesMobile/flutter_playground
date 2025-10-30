@@ -20,7 +20,6 @@ class BankCardCarousel extends StatefulWidget {
     this.padding = const EdgeInsets.symmetric(vertical: 8),
   });
 
-
   final List<BankCard> cards;
   final int initialPage;
   final double viewportFraction;
@@ -122,10 +121,7 @@ class _BankCardCarouselState extends State<BankCardCarousel> {
     );
   }
 
-  
   Widget _sizedCard(BankCard card) {
-    
-    
     return SizedBox(height: widget.height, child: card);
   }
 }
@@ -167,6 +163,5 @@ class _DotsIndicator extends StatelessWidget {
     );
   }
 }
-
 
 double lerpDouble(double a, double b, double t) => a + (b - a) * t;
