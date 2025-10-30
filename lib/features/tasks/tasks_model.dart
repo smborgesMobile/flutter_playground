@@ -13,11 +13,7 @@ class TasksModel extends Equatable {
     this.isDeleted = false,
   });
 
-  TasksModel copyWith({
-    String? title,
-    bool? isDone,
-    bool? isDeleted,
-  }) {
+  TasksModel copyWith({String? title, bool? isDone, bool? isDeleted}) {
     return TasksModel(
       title: title ?? this.title,
       isDone: isDone ?? this.isDone,
@@ -46,7 +42,8 @@ class TasksModel extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory TasksModel.fromJson(String source) => TasksModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory TasksModel.fromJson(String source) =>
+      TasksModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   bool get stringify => true;

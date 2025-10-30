@@ -30,9 +30,7 @@ class TasksPage extends StatelessWidget {
                   builder: (context, state) {
                     final items = state.task;
                     if (items.isEmpty) {
-                      return const Center(
-                        child: Text('Nenhuma tarefa ainda.'),
-                      );
+                      return const Center(child: Text('Nenhuma tarefa ainda.'));
                     }
                     return ListView.separated(
                       itemCount: items.length,
@@ -44,18 +42,20 @@ class TasksPage extends StatelessWidget {
                           title: Text(t.title),
                           leading: IconButton(
                             icon: Icon(
-                              t.isDone ? Icons.check_circle : Icons.circle_outlined,
+                              t.isDone
+                                  ? Icons.check_circle
+                                  : Icons.circle_outlined,
                               color: t.isDone ? Colors.green : null,
                             ),
-                            onPressed: () => context
-                                .read<TasksBloc>()
-                                .add(ToggleTaskCompleted(t.title)),
+                            onPressed: () => context.read<TasksBloc>().add(
+                              ToggleTaskCompleted(t.title),
+                            ),
                           ),
                           trailing: IconButton(
                             icon: const Icon(Icons.delete_outline),
-                            onPressed: () => context
-                                .read<TasksBloc>()
-                                .add(RemoveTask(t.title)),
+                            onPressed: () => context.read<TasksBloc>().add(
+                              RemoveTask(t.title),
+                            ),
                           ),
                         );
                       },
@@ -76,14 +76,13 @@ class TasksPage extends StatelessWidget {
                 final id = random.nextInt(999999);
                 final name = 'Task $id';
                 context.read<TasksBloc>().add(AddTask(TasksModel(title: name)));
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Adicionada: $name')),
-                );
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text('Adicionada: $name')));
               },
             ),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-            
         ),
       ),
     );

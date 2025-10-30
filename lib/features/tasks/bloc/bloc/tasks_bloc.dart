@@ -31,33 +31,41 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
 
   Future<void> _onRemoveTask(RemoveTask event, Emitter<TasksState> emit) async {
     final storage = await TasksStorage.create();
-    final updated = state.task.where((t) => t.title != event.taskId).toList(growable: false);
+    final updated = state.task
+        .where((t) => t.title != event.taskId)
+        .toList(growable: false);
     await storage.saveTasks(updated);
     emit(TasksInitial(updated));
   }
 
-  Future<void> _onToggleTaskCompleted(ToggleTaskCompleted event, Emitter<TasksState> emit) async {
+  Future<void> _onToggleTaskCompleted(
+    ToggleTaskCompleted event,
+    Emitter<TasksState> emit,
+  ) async {
     final storage = await TasksStorage.create();
-    final updated = state.task.map((t) {
-      if (t.title == event.taskId) {
-        return t.copyWith(isDone: !t.isDone);
-      }
-      return t;
-    }).toList(growable: false);
+    final updated = state.task
+        .map((t) {
+          if (t.title == event.taskId) {
+            return t.copyWith(isDone: !t.isDone);
+          }
+          return t;
+        })
+        .toList(growable: false);
     await storage.saveTasks(updated);
     emit(TasksInitial(updated));
   }
 
   Future<void> _onUpdateTask(UpdateTask event, Emitter<TasksState> emit) async {
     final storage = await TasksStorage.create();
-    final updated = state.task.map((t) {
-      if (t.title == event.task.title) {
-        return event.task;
-      }
-      return t;
-    }).toList(growable: false);
+    final updated = state.task
+        .map((t) {
+          if (t.title == event.task.title) {
+            return event.task;
+          }
+          return t;
+        })
+        .toList(growable: false);
     await storage.saveTasks(updated);
     emit(TasksInitial(updated));
   }
 }
-

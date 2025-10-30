@@ -11,7 +11,7 @@ class TasksStorage {
   static Future<TasksStorage> create() async {
     final prefs = await SharedPreferences.getInstance();
     return TasksStorage(prefs);
-    }
+  }
 
   Future<List<TasksModel>> loadTasks() async {
     final stored = _prefs.getStringList(_kTasksKey) ?? const <String>[];

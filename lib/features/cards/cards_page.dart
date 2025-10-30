@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playground/features/cards/bloc/select_tab_cubit.dart';
 import 'package:flutter_playground/features/cards/widgets/bottom_navigation_item.dart';
+import 'package:flutter_playground/features/cards/screens/my_card_screen/my_card_screen.dart';
+import 'package:flutter_playground/features/cards/screens/invoice_screen/invoice_screen.dart';
+import 'package:flutter_playground/features/cards/screens/emergency_screen/emergency_screen.dart';
 import 'package:flutter_playground/features/course/bloc/bloc/bloc_imports.dart';
 import 'package:flutter_playground/themes/bank_theme.dart';
 
@@ -29,7 +32,24 @@ class CardsPage extends StatelessWidget {
           top: false,
           child: Scaffold(
             appBar: AppBar(title: Text("Cartões"), scrolledUnderElevation: 0.5),
-            body: const Column(),
+            body: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: BlocBuilder<SelectedTabCubit, int>(
+                buildWhen: (p, c) => p != c,
+                builder: (context, selected) {
+                  switch (selected) {
+                    case 0:
+                      return const MyCardScreen();
+                    case 1:
+                      return const InvoiceScreen();
+                    case 2:
+                      return const EmergencyScreen();
+                    default:
+                      return const MyCardScreen();
+                  }
+                },
+              ),
+            ),
             bottomNavigationBar: Padding(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
               child: BlocBuilder<SelectedTabCubit, int>(

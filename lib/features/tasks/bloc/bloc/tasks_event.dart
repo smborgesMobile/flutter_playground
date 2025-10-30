@@ -25,7 +25,6 @@ final class RemoveTask extends TasksEvent {
   List<Object> get props => [taskId];
 }
 
-
 final class ToggleTaskCompleted extends TasksEvent {
   final String taskId;
   const ToggleTaskCompleted(this.taskId);

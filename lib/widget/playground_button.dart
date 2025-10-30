@@ -23,7 +23,7 @@ class PlaygroundButton extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: onPressed,
                 child: Text(buttonText),
-             )
+              ),
             ),
           ),
         ],
