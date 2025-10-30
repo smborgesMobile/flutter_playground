@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_playground/features/cards/bloc/cards_screen_bloc.dart';
+import 'package:flutter_playground/features/cards/data/cards_screen_repository.dart';
+import 'package:flutter_playground/features/cards/models/screen_definition.dart';
 import 'package:flutter_playground/features/cards/widgets/bank_card.dart';
 import 'package:flutter_playground/features/cards/widgets/bank_card_carousel.dart';
 import 'package:flutter_playground/features/cards/widgets/expense_item.dart';
@@ -10,98 +14,123 @@ class MyCardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const expenses = <ExpenseItem>[
-      ExpenseItem(
-        title: 'Cab to home',
-        subtitle: 'Uber',
-        amount: 1450.48,
-        isCredit: false, // debit
-        time: '9:41 am',
-        leadingIcon: Icons.local_taxi,
-      ),
-      ExpenseItem(
-        title: 'Salary',
-        subtitle: 'Company Inc.',
-        amount: 7500.00,
-        isCredit: true, // credit
-        time: '8:00 am',
-        leadingIcon: Icons.account_balance_wallet_outlined,
-      ),
-      ExpenseItem(
-        title: 'Groceries',
-        subtitle: 'Supermarket',
-        amount: 320.70,
-        isCredit: false, // debit
-        time: 'Yesterday',
-        leadingIcon: Icons.local_grocery_store_outlined,
-      ),
-      ExpenseItem(
-        title: 'Dinner',
-        subtitle: 'Restaurant',
-        amount: 120.00,
-        isCredit: false,
-        time: 'Mon, 20:15',
-        leadingIcon: Icons.restaurant_outlined,
-      ),
-    ];
+    return BlocProvider(
+      create: (_) => CardsScreenBloc(repository: const CardsScreenRepository())
+        ..add(const CardsScreenRequested()),
+      child: BlocBuilder<CardsScreenBloc, CardsScreenState>(
+        builder: (context, state) {
+          if (state.isLoading) {
+            return const CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Center(child: CircularProgressIndicator()),
+                ),
+              ],
+            );
+          }
+          if (state.error != null) {
+            return CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Center(
+                    child: Text('Failed to load: ${state.error}')
+                  ),
+                ),
+              ],
+            );
+          }
 
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: BankCardCarousel(
-            height: 190,
-            viewportFraction: 0.9,
-            onPageChanged: (i) => debugPrint('Selected card index: $i'),
-            cards: const [
-              BankCard(
-                remainingCreditLabel: 'Crédito restante',
-                remainingCreditAmount: 'R\$ 2.450,00',
-                dailyCashbackText: 'Cashback diário: R\$ 25,00',
-                totalAmount: 'R\$ 25.000,00',
-                dueText: 'Vence em 6 dias',
-                brandAssetPath: 'lib/assets/visa.png',
-              ),
-              BankCard(
-                remainingCreditLabel: 'Limite disponível',
-                remainingCreditAmount: 'R\$ 8.120,00',
-                dailyCashbackText: 'Cashback diário: R\$ 12,00',
-                totalAmount: 'R\$ 10.000,00',
-                dueText: 'Vence amanhã',
-                brandAssetPath: 'lib/assets/visa.png',
-              ),
-              BankCard(
-                remainingCreditLabel: 'Saldo',
-                remainingCreditAmount: 'R\$ 500,00',
-                dailyCashbackText: 'Cashback diário: R\$ 2,50',
-                totalAmount: 'R\$ 5.000,00',
-                dueText: 'Vence em 12 dias',
-                brandAssetPath: 'lib/assets/visa.png',
-              ),
-            ],
-          ),
-        ),
-        const SliverToBoxAdapter(
-          child: TextHeader(title: 'Recent Transaction'),
-        ),
-        const SliverToBoxAdapter(child: SizedBox(height: 8)),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) => expenses[index],
-            childCount: expenses.length,
-            addAutomaticKeepAlives: false,
-            addSemanticIndexes: false,
-          ),
-        ),
-        const SliverToBoxAdapter(child: SizedBox(height: 16)),
-        SliverToBoxAdapter(
-          child: PromotionItem(
-            imageUrl: 'https://picsum.photos/300/200',
-            title:
-                'Good job! Your spending reduced by 10% compared to last month.',
-            buttonTitle: 'View details',
-          ),
-        ),
-      ],
+          final def = state.definition;
+          if (def == null) {
+            return const SizedBox.shrink();
+          }
+
+          return CustomScrollView(
+            slivers: _buildSlivers(def),
+          );
+        },
+      ),
     );
+  }
+
+  List<Widget> _buildSlivers(ScreenDefinition def) {
+    final slivers = <Widget>[];
+    for (final c in def.slivers) {
+      if (c is CarouselComponent) {
+        slivers.add(
+          SliverToBoxAdapter(
+            child: BankCardCarousel(
+              height: 190,
+              viewportFraction: 0.9,
+              cards: c.cards
+                  .map((d) => BankCard(
+                        remainingCreditLabel: d.remainingCreditLabel,
+                        remainingCreditAmount: d.remainingCreditAmount,
+                        dailyCashbackText: d.dailyCashbackText,
+                        totalAmount: d.totalAmount,
+                        dueText: d.dueText,
+                        brandAssetPath: d.brandAssetPath,
+                      ))
+                  .toList(),
+            ),
+          ),
+        );
+      } else if (c is HeaderComponent) {
+        slivers.add(SliverToBoxAdapter(child: TextHeader(title: c.title)));
+        slivers.add(const SliverToBoxAdapter(child: SizedBox(height: 8)));
+      } else if (c is ExpensesListComponent) {
+        final items = c.items;
+        slivers.add(
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                final item = items[index];
+                final isCredit = item.amount >= 0;
+                final amount = item.amount.abs();
+                return ExpenseItem(
+                  title: item.title,
+                  subtitle: item.subtitle,
+                  amount: amount,
+                  isCredit: isCredit,
+                  time: item.time,
+                  leadingIcon: _mapIcon(item.icon),
+                );
+              },
+              childCount: items.length,
+              addAutomaticKeepAlives: false,
+              addSemanticIndexes: false,
+            ),
+          ),
+        );
+      } else if (c is PromotionComponent) {
+        slivers.add(
+          SliverToBoxAdapter(
+            child: PromotionItem(
+              imageUrl: c.imageUrl,
+              title: c.title,
+              buttonTitle: c.buttonTitle,
+            ),
+          ),
+        );
+      }
+    }
+    return slivers;
+  }
+
+  IconData _mapIcon(String name) {
+    switch (name) {
+      case 'local_taxi':
+        return Icons.local_taxi;
+      case 'account_balance_wallet_outlined':
+        return Icons.account_balance_wallet_outlined;
+      case 'local_grocery_store_outlined':
+        return Icons.local_grocery_store_outlined;
+      case 'restaurant_outlined':
+        return Icons.restaurant_outlined;
+      default:
+        return Icons.receipt_long;
+    }
   }
 }

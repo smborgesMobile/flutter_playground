@@ -25,5 +25,6 @@ flutter:
   assets:
     - lib/assets/visa.png
     - lib/assets/promotions.png
+    - lib/assets/screens/cards_screen.json
   
   
