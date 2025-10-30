@@ -4,6 +4,7 @@ import 'package:flutter_playground/features/cards/widgets/bottom_navigation_item
 import 'package:flutter_playground/features/cards/screens/my_card_screen/my_card_screen.dart';
 import 'package:flutter_playground/features/cards/screens/invoice_screen/invoice_screen.dart';
 import 'package:flutter_playground/features/cards/screens/emergency_screen/emergency_screen.dart';
+import 'package:flutter_playground/themes/fonts.dart';
 import 'package:flutter_playground/features/course/bloc/bloc/bloc_imports.dart';
 import 'package:flutter_playground/themes/bank_theme.dart';
 
@@ -25,6 +26,8 @@ class CardsPage extends StatelessWidget {
           onSecondary: Colors.white,
           onSurface: AppColors.textPrimary,
         ),
+        fontFamily: AppTypography.fontFamily,
+        textTheme: AppTypography.textTheme,
       ),
       home: BlocProvider(
         create: (context) => SelectedTabCubit(),
