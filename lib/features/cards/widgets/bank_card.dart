@@ -44,10 +44,7 @@ class BankCard extends StatelessWidget {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [
-                Color(0xFF52B6FE),
-                Color(0xFF6154FE),
-              ],
+              colors: [Color(0xFF52B6FE), Color(0xFF6154FE)],
             ),
           ),
           padding: const EdgeInsets.all(16.0),
@@ -72,24 +69,15 @@ class BankCard extends StatelessWidget {
                           style: AppTypography.onPrimaryTitle,
                         ),
                         const SizedBox(height: 8),
-                        Text(
-                          dailyCashbackText,
-                          style: AppTypography.regular,
-                        ),
+                        Text(dailyCashbackText, style: AppTypography.regular),
                       ],
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
-                          totalAmount,
-                          style: AppTypography.regular,
-                        ),
-                        Text(
-                          dueText,
-                          style: AppTypography.regular,
-                        ),
+                        Text(totalAmount, style: AppTypography.regular),
+                        Text(dueText, style: AppTypography.regular),
                       ],
                     ),
                   ],
@@ -101,24 +89,21 @@ class BankCard extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(right: 12.0, top: 4),
-                    child: Image.asset(
-                      brandAssetPath,
-                      width: 50,
-                      height: 40,
-                    ),
+                    child: Image.asset(brandAssetPath, width: 50, height: 40),
                   ),
                   GestureDetector(
                     onTap: onPayNow,
                     child: Container(
-                      margin:
-                          const EdgeInsets.only(right: 12.0, bottom: 4),
+                      margin: const EdgeInsets.only(right: 12.0, bottom: 4),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                         color: const Color(0xFF5AE677),
                       ),
                       child: const Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 12),
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
                         child: Text(
                           'Pay Now',
                           style: AppTypography.onPrimaryTitle,
