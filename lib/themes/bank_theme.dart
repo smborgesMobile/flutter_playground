@@ -42,7 +42,11 @@ class AppColors {
   static MaterialColor createMaterialColor(Color color) {
     final strengths = <double>[.05];
     final swatch = <int, Color>{};
-    final int r = color.red, g = color.green, b = color.blue;
+    // New color component accessors: r/g/b are doubles in [0,1].
+    // Convert to 8-bit ints when needed.
+    final int r = (color.r * 255.0).round() & 0xff;
+    final int g = (color.g * 255.0).round() & 0xff;
+    final int b = (color.b * 255.0).round() & 0xff;
 
     for (int i = 1; i < 10; i++) {
       strengths.add(0.1 * i);
@@ -58,6 +62,7 @@ class AppColors {
       );
     }
 
-    return MaterialColor(color.value, swatch);
+    // Avoid deprecated `value` getter; use explicit 32-bit ARGB conversion.
+    return MaterialColor(color.toARGB32(), swatch);
   }
 }

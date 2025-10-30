@@ -36,7 +36,7 @@ class CardsPage extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(title: Text("Cartões"), scrolledUnderElevation: 0.5),
             body: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(0),
               child: BlocBuilder<SelectedTabCubit, int>(
                 buildWhen: (p, c) => p != c,
                 builder: (context, selected) {

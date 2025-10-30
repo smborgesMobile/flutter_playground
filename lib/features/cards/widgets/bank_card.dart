@@ -17,17 +17,11 @@ class BankCard extends StatelessWidget {
 
   final double height;
   final double borderRadius;
-
-  // Left column (top group)
   final String remainingCreditLabel;
   final String remainingCreditAmount;
   final String dailyCashbackText;
-
-  // Left column (bottom group)
   final String totalAmount;
   final String dueText;
-
-  // Right column
   final String brandAssetPath;
   final VoidCallback? onPayNow;
 
