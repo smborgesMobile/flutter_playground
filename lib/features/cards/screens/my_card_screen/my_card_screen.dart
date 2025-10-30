@@ -6,12 +6,6 @@ class MyCardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          const BankCard(),
-        ],
-      ),
-    );
+    return Scaffold(body: Column(children: [const BankCard()]));
   }
 }
