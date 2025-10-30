@@ -11,7 +11,7 @@ class MyCardScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         BankCardCarousel(
-          height: 220,
+          height: 190,
           viewportFraction: 0.9,
           onPageChanged: (i) => debugPrint('Selected card index: $i'),
           cards: const [
