@@ -28,7 +28,12 @@ class HomePage extends StatelessWidget {
                 Navigator.pushNamed(context, '/tasks-page');
               },
             ),
-            PlaygroundButton(buttonText: "Feature 3", onPressed: () {}),
+            PlaygroundButton(
+              buttonText: "Cartoes",
+              onPressed: () {
+                Navigator.pushNamed(context, '/app-cartoes');
+              },
+            ),
             PlaygroundButton(buttonText: "Feature 4", onPressed: () {}),
           ],
         ),

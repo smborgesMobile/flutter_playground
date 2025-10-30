@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playground/features/bloc/bloc_page.dart';
+import 'package:flutter_playground/features/cards/cards_page.dart';
 import 'package:flutter_playground/features/course/bloc/bloc/bloc_imports.dart';
 import 'package:flutter_playground/features/course/udemy_course.dart';
 import 'package:flutter_playground/features/home/home_page.dart';
@@ -23,6 +24,7 @@ class MainApp extends StatelessWidget {
           "/bloc-router": (context) => BlocPage(),
           "/udemy-course": (context) => UdemyCourse(),
           "/tasks-page": (context) => TasksPage(),
+          "/app-cartoes": (context) => CardsPage(),
         },
       ),
     );
