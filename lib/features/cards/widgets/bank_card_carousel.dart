@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_playground/themes/bank_theme.dart';
 
 import 'bank_card.dart';
 
@@ -13,8 +14,8 @@ class BankCardCarousel extends StatefulWidget {
     this.height = 220,
     this.onPageChanged,
     this.showIndicator = true,
-    this.indicatorActiveColor = Colors.white,
-    this.indicatorInactiveColor = const Color(0x66FFFFFF),
+    this.indicatorActiveColor = AppColors.primary,
+    this.indicatorInactiveColor = AppColors.textSecondary,
     this.indicatorSize = 8,
     this.indicatorSpacing = 6,
     this.padding = const EdgeInsets.symmetric(vertical: 8),

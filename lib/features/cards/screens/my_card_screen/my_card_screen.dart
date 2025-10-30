@@ -9,8 +9,8 @@ class MyCardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final expenses = <ExpenseItem>[
-      const ExpenseItem(
+    const expenses = <ExpenseItem>[
+      ExpenseItem(
         title: 'Cab to home',
         subtitle: 'Uber',
         amount: 1450.48,
@@ -18,7 +18,7 @@ class MyCardScreen extends StatelessWidget {
         time: '9:41 am',
         leadingIcon: Icons.local_taxi,
       ),
-      const ExpenseItem(
+      ExpenseItem(
         title: 'Salary',
         subtitle: 'Company Inc.',
         amount: 7500.00,
@@ -26,7 +26,7 @@ class MyCardScreen extends StatelessWidget {
         time: '8:00 am',
         leadingIcon: Icons.account_balance_wallet_outlined,
       ),
-      const ExpenseItem(
+      ExpenseItem(
         title: 'Groceries',
         subtitle: 'Supermarket',
         amount: 320.70,
@@ -34,7 +34,7 @@ class MyCardScreen extends StatelessWidget {
         time: 'Yesterday',
         leadingIcon: Icons.local_grocery_store_outlined,
       ),
-      const ExpenseItem(
+      ExpenseItem(
         title: 'Dinner',
         subtitle: 'Restaurant',
         amount: 120.00,
@@ -79,12 +79,15 @@ class MyCardScreen extends StatelessWidget {
             ],
           ),
         ),
-        const SliverToBoxAdapter(child: SizedBox(height: 16)),
         const SliverToBoxAdapter(child: TextHeader(title: 'Recent Transaction')),
-        const SliverToBoxAdapter(child: SizedBox(height: 16)),
-        SliverList.builder(
-          itemCount: expenses.length,
-          itemBuilder: (context, index) => expenses[index],
+        const SliverToBoxAdapter(child: SizedBox(height: 8)),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) => expenses[index],
+            childCount: expenses.length,
+            addAutomaticKeepAlives: false,
+            addSemanticIndexes: false,
+          ),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 16)),
       ],
