@@ -92,4 +92,17 @@ class AppTypography {
     fontWeight: FontWeight.w400, // regular
     color: AppColors.textSecondary,
   );
+
+  // --- Promotion item specific styles ---
+  static const TextStyle promotionTitle = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400, // regular
+    color: Colors.black,
+  );
+
+  static const TextStyle promotionButton = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w700, // bold
+    color: Colors.black,
+  );
 }

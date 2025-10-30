@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_playground/features/cards/widgets/bank_card.dart';
 import 'package:flutter_playground/features/cards/widgets/bank_card_carousel.dart';
 import 'package:flutter_playground/features/cards/widgets/expense_item.dart';
+import 'package:flutter_playground/features/cards/widgets/promotion_item.dart';
 import 'package:flutter_playground/features/cards/widgets/text_header.dart';
 
 class MyCardScreen extends StatelessWidget {
@@ -79,7 +80,9 @@ class MyCardScreen extends StatelessWidget {
             ],
           ),
         ),
-        const SliverToBoxAdapter(child: TextHeader(title: 'Recent Transaction')),
+        const SliverToBoxAdapter(
+          child: TextHeader(title: 'Recent Transaction'),
+        ),
         const SliverToBoxAdapter(child: SizedBox(height: 8)),
         SliverList(
           delegate: SliverChildBuilderDelegate(
@@ -90,6 +93,14 @@ class MyCardScreen extends StatelessWidget {
           ),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 16)),
+        SliverToBoxAdapter(
+          child: PromotionItem(
+            imageUrl: 'https://picsum.photos/300/200',
+            title:
+                'Good job! Your spending reduced by 10% compared to last month.',
+            buttonTitle: 'View details',
+          ),
+        ),
       ],
     );
   }
