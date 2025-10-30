@@ -55,4 +55,41 @@ class AppTypography {
     fontWeight: FontWeight.normal,
     color: Colors.white,
   );
+
+    static const TextStyle header = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
+
+  // --- Expense item specific styles ---
+  static const TextStyle expenseTitle = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400, // regular
+    color: Colors.black,
+  );
+
+  static const TextStyle expenseSubtitle = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w700, // bold
+    color: Color(0xFFA8A8A8),
+  );
+
+  static const TextStyle amountCredit = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    color: Color(0xFF5AE677),
+  );
+
+  static const TextStyle amountDebit = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    color: Color(0xFFF24E30),
+  );
+
+  static const TextStyle expenseTime = TextStyle(
+    fontSize: 10,
+    fontWeight: FontWeight.w400, // regular
+    color: AppColors.textSecondary,
+  );
 }

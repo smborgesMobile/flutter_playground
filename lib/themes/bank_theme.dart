@@ -12,7 +12,7 @@ class AppColors {
   static const Color accentVariant = Color(0xFF00A187);
 
   // Backgrounds & surfaces
-  static const Color background = Color(0xFFF6F8FB); // light neutral
+  static const Color background = Color.fromARGB(255, 255, 255, 255); // light neutral
   static const Color surface = Color(0xFFFFFFFF);
 
   // Greys / neutrals
