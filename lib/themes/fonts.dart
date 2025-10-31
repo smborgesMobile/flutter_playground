@@ -50,7 +50,7 @@ class AppTypography {
     color: Colors.white,
   );
 
-    static const TextStyle buttonTitle = TextStyle(
+  static const TextStyle buttonTitle = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.bold,
     color: Colors.white,
@@ -62,7 +62,7 @@ class AppTypography {
     color: Colors.white,
   );
 
-    static const TextStyle header = TextStyle(
+  static const TextStyle header = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,
     color: Colors.black,
@@ -110,5 +110,11 @@ class AppTypography {
     fontSize: 12,
     fontWeight: FontWeight.w700, // bold
     color: Colors.black,
+  );
+
+  static const TextStyle linkButtonText = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold, // bold
+    color: AppColors.primary,
   );
 }

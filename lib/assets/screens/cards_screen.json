@@ -66,6 +66,10 @@
       "title": "Reminders"
     },
     {
+      "type": "check_all_button",
+      "title": "Check all"
+    },
+    {
       "type": "reminder_list",
       "items": [
         {

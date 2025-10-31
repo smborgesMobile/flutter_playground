@@ -7,6 +7,7 @@ import 'package:flutter_playground/features/cards/widgets/expense_reminder.dart'
 import 'package:flutter_playground/features/cards/widgets/promotion_item.dart';
 import 'package:flutter_playground/features/cards/widgets/reminder_header.dart';
 import 'package:flutter_playground/features/cards/widgets/text_header.dart';
+import 'package:flutter_playground/features/cards/widgets/check_all_button.dart';
 
 typedef ComponentSliverBuilder = List<Widget> Function(Component c);
 
@@ -20,6 +21,7 @@ class CardsScreenRenderer {
     'promotion': _buildPromotion,
     'reminder-header': _buildRimenderHeader,
     'reminder_list': _buildReminders,
+    'check_all_button': _buildCheckAllButton,
   };
 
   static List<Widget> buildSlivers(
@@ -161,6 +163,20 @@ class CardsScreenRenderer {
             addAutomaticKeepAlives: false,
             addSemanticIndexes: false,
           ),
+        ),
+      ),
+    ];
+  }
+
+  static List<Widget> _buildCheckAllButton(Component c) {
+    final comp = c is CheckAllButtonComponent ? c : null;
+    if (comp == null || comp.title.isEmpty) return const [];
+    return [
+      const SliverToBoxAdapter(child: SizedBox(height: 12)),
+      SliverPadding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        sliver: SliverToBoxAdapter(
+          child: CheckAllButton(title: comp.title),
         ),
       ),
     ];
