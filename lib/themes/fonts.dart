@@ -50,6 +50,12 @@ class AppTypography {
     color: Colors.white,
   );
 
+    static const TextStyle buttonTitle = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
+
   static const TextStyle regular = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.normal,

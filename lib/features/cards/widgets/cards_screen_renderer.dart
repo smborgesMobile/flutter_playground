@@ -4,6 +4,7 @@ import 'package:flutter_playground/features/cards/widgets/bank_card.dart';
 import 'package:flutter_playground/features/cards/widgets/bank_card_carousel.dart';
 import 'package:flutter_playground/features/cards/widgets/expense_item.dart';
 import 'package:flutter_playground/features/cards/widgets/promotion_item.dart';
+import 'package:flutter_playground/features/cards/widgets/reminder_header.dart';
 import 'package:flutter_playground/features/cards/widgets/text_header.dart';
 
 typedef ComponentSliverBuilder = List<Widget> Function(Component c);
@@ -16,6 +17,7 @@ class CardsScreenRenderer {
     'header': _buildHeader,
     'expenses_list': _buildExpenses,
     'promotion': _buildPromotion,
+    'reminder-header': _buildRimenderHeader,
   };
 
   static List<Widget> buildSlivers(
@@ -64,6 +66,16 @@ class CardsScreenRenderer {
     if (comp == null || comp.title.isEmpty) return const [];
     return [
       SliverToBoxAdapter(child: TextHeader(title: comp.title)),
+      const SliverToBoxAdapter(child: SizedBox(height: 8)),
+    ];
+  }
+
+  static List<Widget> _buildRimenderHeader(Component c) {
+    final comp = c is ReminderHeaderComponent ? c : null;
+    if (comp == null || comp.title.isEmpty) return const [];
+    return [
+      const SliverToBoxAdapter(child: SizedBox(height: 8)),
+      SliverToBoxAdapter(child: ReminderHeader(title: comp.title)),
       const SliverToBoxAdapter(child: SizedBox(height: 8)),
     ];
   }

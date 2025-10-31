@@ -60,6 +60,10 @@
       "imageUrl": "https://picsum.photos/300/200",
       "title": "Good job! Your spending reduced by 10% compared to last month.",
       "buttonTitle": "View details"
+    },
+    {
+      "type": "reminder-header",
+      "title": "Reminders"
     }
   ]
 }

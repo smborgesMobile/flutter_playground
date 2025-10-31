@@ -30,6 +30,8 @@ abstract class Component extends Equatable {
         return CarouselComponent.fromJson(json);
       case 'expenses_list':
         return ExpensesListComponent.fromJson(json);
+      case 'reminder-header':
+        return ReminderHeaderComponent.fromJson(json);
       default:
         return UnknownComponent(type);
     }
@@ -101,12 +103,20 @@ class CarouselCardData extends Equatable {
       dailyCashbackText: json['dailyCashbackText'] as String? ?? '',
       totalAmount: json['totalAmount'] as String? ?? '',
       dueText: json['dueText'] as String? ?? '',
-      brandAssetPath: json['brandAssetPath'] as String? ?? 'lib/assets/visa.png',
+      brandAssetPath:
+          json['brandAssetPath'] as String? ?? 'lib/assets/visa.png',
     );
   }
 
   @override
-  List<Object?> get props => [remainingCreditLabel, remainingCreditAmount, dailyCashbackText, totalAmount, dueText, brandAssetPath];
+  List<Object?> get props => [
+    remainingCreditLabel,
+    remainingCreditAmount,
+    dailyCashbackText,
+    totalAmount,
+    dueText,
+    brandAssetPath,
+  ];
 }
 
 class CarouselComponent extends Component {
@@ -166,4 +176,16 @@ class ExpensesListComponent extends Component {
 
   @override
   List<Object?> get props => [items];
+}
+
+class ReminderHeaderComponent extends Component {
+  final String title;
+  const ReminderHeaderComponent({required this.title}) : super('reminder-header');
+
+  factory ReminderHeaderComponent.fromJson(Map<String, dynamic> json) {
+    return ReminderHeaderComponent(title: json['title'] as String? ?? '');
+  }
+
+  @override
+  List<Object?> get props => [title];
 }
