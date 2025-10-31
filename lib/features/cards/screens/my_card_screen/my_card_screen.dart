@@ -45,6 +45,9 @@ class MyCardScreen extends StatelessWidget {
           }
 
           final slivers = CardsScreenRenderer.buildSlivers(def);
+
+          // Add a spacer only at the end of the scroll so content can pass behind
+          // the floating bottom nav while keeping the last item visible.
           slivers.add(const BottomNavSliverSpacer());
           return CustomScrollView(slivers: slivers);
         },

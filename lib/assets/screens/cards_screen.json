@@ -64,6 +64,26 @@
     {
       "type": "reminder-header",
       "title": "Reminders"
+    },
+    {
+      "type": "reminder_list",
+      "items": [
+        {
+          "icon": "receipt_long",
+          "title": "Pagar fatura",
+          "subtitle": "vence em 3 dias"
+        },
+        {
+          "icon": "shield_outlined",
+          "title": "Seguro do cartão",
+          "subtitle": "renove até 05/11"
+        },
+        {
+          "icon": "credit_card_outlined",
+          "title": "Limite disponível",
+          "subtitle": "R$ 2.350,00"
+        }
+      ]
     }
   ]
 }

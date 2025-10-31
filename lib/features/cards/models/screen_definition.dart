@@ -32,6 +32,8 @@ abstract class Component extends Equatable {
         return ExpensesListComponent.fromJson(json);
       case 'reminder-header':
         return ReminderHeaderComponent.fromJson(json);
+      case 'reminder_list':
+        return RemindersListComponent.fromJson(json);
       default:
         return UnknownComponent(type);
     }
@@ -188,4 +190,42 @@ class ReminderHeaderComponent extends Component {
 
   @override
   List<Object?> get props => [title];
+}
+
+class ReminderItemData extends Equatable {
+  final String title;
+  final String subtitle;
+  final String icon;
+
+  const ReminderItemData({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+  });
+
+  factory ReminderItemData.fromJson(Map<String, dynamic> json) {
+    return ReminderItemData(
+      title: json['title'] as String? ?? '',
+      subtitle: json['subtitle'] as String? ?? '',
+      icon: json['icon'] as String? ?? 'receipt_long',
+    );
+  }
+
+  @override
+  List<Object?> get props => [title, subtitle, icon];
+}
+
+class RemindersListComponent extends Component {
+  final List<ReminderItemData> items;
+  const RemindersListComponent({required this.items}) : super('reminder_list');
+
+  factory RemindersListComponent.fromJson(Map<String, dynamic> json) {
+    final items = (json['items'] as List<dynamic>? ?? [])
+        .map((e) => ReminderItemData.fromJson(e as Map<String, dynamic>))
+        .toList();
+    return RemindersListComponent(items: items);
+  }
+
+  @override
+  List<Object?> get props => [items];
 }

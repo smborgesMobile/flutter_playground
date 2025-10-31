@@ -3,6 +3,7 @@ import 'package:flutter_playground/features/cards/models/screen_definition.dart'
 import 'package:flutter_playground/features/cards/widgets/bank_card.dart';
 import 'package:flutter_playground/features/cards/widgets/bank_card_carousel.dart';
 import 'package:flutter_playground/features/cards/widgets/expense_item.dart';
+import 'package:flutter_playground/features/cards/widgets/expense_reminder.dart';
 import 'package:flutter_playground/features/cards/widgets/promotion_item.dart';
 import 'package:flutter_playground/features/cards/widgets/reminder_header.dart';
 import 'package:flutter_playground/features/cards/widgets/text_header.dart';
@@ -18,6 +19,7 @@ class CardsScreenRenderer {
     'expenses_list': _buildExpenses,
     'promotion': _buildPromotion,
     'reminder-header': _buildRimenderHeader,
+    'reminder_list': _buildReminders,
   };
 
   static List<Widget> buildSlivers(
@@ -130,6 +132,40 @@ class CardsScreenRenderer {
     ];
   }
 
+  static List<Widget> _buildReminders(Component c) {
+    final comp = c is RemindersListComponent ? c : null;
+    if (comp == null || comp.items.isEmpty) return const [];
+
+    final icons = comp.items
+        .map((e) => _iconFor(e.icon))
+        .toList(growable: false);
+
+    return [
+      SliverPadding(
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+        sliver: SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              final item = comp.items[index];
+              final bottom = index == comp.items.length - 1 ? 0.0 : 12.0;
+              return Padding(
+                padding: EdgeInsets.only(bottom: bottom),
+                child: ExpenseReminderItem(
+                  leadIcon: icons[index],
+                  title: item.title,
+                  subtitle: item.subtitle,
+                ),
+              );
+            },
+            childCount: comp.items.length,
+            addAutomaticKeepAlives: false,
+            addSemanticIndexes: false,
+          ),
+        ),
+      ),
+    ];
+  }
+
   static IconData _iconFor(String name) {
     switch (name) {
       case 'local_taxi':
@@ -140,6 +176,12 @@ class CardsScreenRenderer {
         return Icons.local_grocery_store_outlined;
       case 'restaurant_outlined':
         return Icons.restaurant_outlined;
+      case 'shield_outlined':
+        return Icons.shield_outlined;
+      case 'credit_card_outlined':
+        return Icons.credit_card_outlined;
+      case 'receipt_long':
+        return Icons.receipt_long;
       default:
         return Icons.receipt_long;
     }
