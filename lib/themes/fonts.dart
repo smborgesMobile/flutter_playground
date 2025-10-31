@@ -62,6 +62,12 @@ class AppTypography {
     color: Colors.white,
   );
 
+    static const TextStyle blackRegular = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+    color: Colors.black,
+  );
+
   static const TextStyle header = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,

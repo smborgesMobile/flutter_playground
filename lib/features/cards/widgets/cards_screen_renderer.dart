@@ -8,6 +8,8 @@ import 'package:flutter_playground/features/cards/widgets/promotion_item.dart';
 import 'package:flutter_playground/features/cards/widgets/reminder_header.dart';
 import 'package:flutter_playground/features/cards/widgets/text_header.dart';
 import 'package:flutter_playground/features/cards/widgets/check_all_button.dart';
+import 'package:flutter_playground/features/cards/widgets/shop_item.dart';
+import 'package:flutter_playground/features/cards/widgets/shop_component.dart';
 
 typedef ComponentSliverBuilder = List<Widget> Function(Component c);
 
@@ -22,6 +24,8 @@ class CardsScreenRenderer {
     'reminder-header': _buildRimenderHeader,
     'reminder_list': _buildReminders,
     'check_all_button': _buildCheckAllButton,
+    'shop_item': _buildShopItem,
+    'shop_section': _buildShopSection,
   };
 
   static List<Widget> buildSlivers(
@@ -182,6 +186,63 @@ class CardsScreenRenderer {
     ];
   }
 
+  static List<Widget> _buildShopItem(Component c) {
+    final comp = c is ShopItemComponent ? c : null;
+    if (comp == null || comp.title.isEmpty) return const [];
+
+    final bgColor = _parseColor(comp.backgroundColor);
+    final icon = _iconFor(comp.icon);
+
+    return [
+      const SliverToBoxAdapter(child: SizedBox(height: 12)),
+      SliverPadding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        sliver: SliverToBoxAdapter(
+          child: ShopItem(
+            icon: icon,
+            title: comp.title,
+            description: comp.description,
+            value: comp.value,
+            backgroundColor: bgColor,
+          ),
+        ),
+      ),
+    ];
+  }
+
+  static List<Widget> _buildShopSection(Component c) {
+    final comp = c is ShopSectionComponent ? c : null;
+    if (comp == null || comp.items.isEmpty) return const [];
+
+    final items = <ShopItem>[];
+    for (var i = 0; i < comp.items.length; i++) {
+      final it = comp.items[i];
+      final parsedColor = _parseColor(it.backgroundColor);
+      final bg = parsedColor ?? (i.isEven ? const Color(0xFFBBDEFB) : const Color(0xFFFFF9C4));
+      items.add(
+        ShopItem(
+          icon: _iconFor(it.icon),
+          title: it.title,
+          description: it.description,
+          value: it.value,
+          backgroundColor: bg,
+        ),
+      );
+    }
+
+    return [
+      const SliverToBoxAdapter(child: SizedBox(height: 4)),
+      SliverToBoxAdapter(
+        child: ShopComponent(
+          title: comp.title,
+          description: comp.description,
+          checkAllTitle: comp.checkAllTitle,
+          items: items,
+        ),
+      ),
+    ];
+  }
+
   static IconData _iconFor(String name) {
     switch (name) {
       case 'local_taxi':
@@ -198,8 +259,37 @@ class CardsScreenRenderer {
         return Icons.credit_card_outlined;
       case 'receipt_long':
         return Icons.receipt_long;
+      case 'shopping_cart':
+        return Icons.shopping_cart;
+      case 'shopping_cart_outlined':
+        return Icons.shopping_cart_outlined;
       default:
         return Icons.receipt_long;
     }
+  }
+
+  static Color? _parseColor(String? hex) {
+    if (hex == null || hex.isEmpty) return null;
+    var value = hex.trim();
+    if (value.startsWith('#')) value = value.substring(1);
+    // If RRGGBB, prepend FF alpha
+    if (value.length == 6) value = 'FF$value';
+    if (value.length == 8) {
+      try {
+        final intVal = int.parse(value, radix: 16);
+        return Color(intVal).withAlpha((intVal >> 24) & 0xFF);
+      } catch (_) {
+        return null;
+      }
+    }
+    // Fallback for 0xAARRGGBB
+    if (value.startsWith('0x')) {
+      try {
+        return Color(int.parse(value));
+      } catch (_) {
+        return null;
+      }
+    }
+    return null;
   }
 }

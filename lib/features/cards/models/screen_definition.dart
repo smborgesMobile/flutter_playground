@@ -7,6 +7,8 @@ import 'expenses_list_component.dart';
 import 'reminder_header_component.dart';
 import 'reminders_list_component.dart';
 import 'check_all_button_component.dart';
+import 'shop_item_component.dart';
+import 'shop_section_component.dart';
 
 // Re-export components so existing imports keep working
 export 'component_base.dart';
@@ -20,6 +22,8 @@ export 'reminder_header_component.dart';
 export 'reminder_item_data.dart';
 export 'reminders_list_component.dart';
 export 'check_all_button_component.dart';
+export 'shop_item_component.dart';
+export 'shop_section_component.dart';
 
 class ScreenDefinition extends Equatable {
   final List<Component> slivers;
@@ -54,6 +58,10 @@ Component parseComponent(Map<String, dynamic> json) {
       return RemindersListComponent.fromJson(json);
     case 'check_all_button':
       return CheckAllButtonComponent.fromJson(json);
+    case 'shop_item':
+      return ShopItemComponent.fromJson(json);
+    case 'shop_section':
+      return ShopSectionComponent.fromJson(json);
     default:
       return UnknownComponent(type);
   }
