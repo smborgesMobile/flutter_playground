@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_playground/themes/bank_theme.dart';
 import 'package:flutter_playground/themes/fonts.dart';
 
 class CheckAllButton extends StatelessWidget {
@@ -9,9 +10,11 @@ class CheckAllButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Expanded(child: Text(title, style: AppTypography.linkButtonText)),
-        const Icon(Icons.arrow_right_alt_outlined),
+        Text(title, style: AppTypography.linkButtonText),
+        SizedBox(width: 4),
+        const Icon(Icons.arrow_right_alt, color: AppColors.primary,),
       ],
     );
   }

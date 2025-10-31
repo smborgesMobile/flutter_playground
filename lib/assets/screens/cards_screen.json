@@ -66,10 +66,6 @@
       "title": "Reminders"
     },
     {
-      "type": "check_all_button",
-      "title": "Check all"
-    },
-    {
       "type": "reminder_list",
       "items": [
         {
@@ -88,6 +84,10 @@
           "subtitle": "R$ 2.350,00"
         }
       ]
+    },
+    {
+      "type": "check_all_button",
+      "title": "Check all"
     }
   ]
 }
