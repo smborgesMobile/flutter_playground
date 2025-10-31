@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_playground/features/cards/bloc/cards_screen_bloc.dart';
 import 'package:flutter_playground/features/cards/data/cards_screen_repository.dart';
 import 'package:flutter_playground/features/cards/widgets/cards_screen_renderer.dart';
-// Renderers manage widget specifics; keep screen lean.
+import 'package:flutter_playground/widget/floating_bottom_nav.dart';
+
 
 class MyCardScreen extends StatelessWidget {
   const MyCardScreen({super.key});
@@ -43,7 +44,9 @@ class MyCardScreen extends StatelessWidget {
             return const SizedBox.shrink();
           }
 
-          return CustomScrollView(slivers: CardsScreenRenderer.buildSlivers(def));
+          final slivers = CardsScreenRenderer.buildSlivers(def);
+          slivers.add(const BottomNavSliverSpacer());
+          return CustomScrollView(slivers: slivers);
         },
       ),
     );
