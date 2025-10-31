@@ -56,6 +56,12 @@
       ]
     },
     {
+      "type": "promotion",
+      "imageUrl": "https://picsum.photos/300/200",
+      "title": "Continue assim! Você está gastando menos que na semana passada.",
+      "buttonTitle": "Ver detalhes"
+    },
+    {
       "type": "reminder-header",
       "title": "Lembretes"
     },
